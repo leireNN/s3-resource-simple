@@ -42,4 +42,8 @@ echo "Uploading to S3..."
 eval aws s3 sync $folder "s3://$bucket/$path" $options
 echo "...done."
 
+echo "clearing cache..."
+exec aws cloudfront create-invalidation --distribution-id=E3I89M55MVQ03P --paths “/*”
+echo "...cache cleared."
+
 source "$(dirname $0)/emit.sh" >&3
